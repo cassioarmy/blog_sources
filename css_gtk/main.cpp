@@ -14,14 +14,28 @@ int main(int argc, char **argv) {
           std::cerr << "FileError: " << ex.what() << std::endl;
 	  return 1;
       }catch(const Glib::FileError& ex){
-        std::cerr << "FileError: " << ex.what() << std::endl;
-	return 1;
+          std::cerr << "FileError: " << ex.what() << std::endl;
+	  return 1;
       }
 
       Gtk::ApplicationWindow* appWindow ;
       
       refBuilder->get_widget("appWindow", appWindow);
-      cout << app->register_application();
+      app->register_application();
+
+
+      //load css
+      Glib::RefPtr<Gtk::CssProvider> cssProvider = Gtk::CssProvider::create();
+      cssProvider->load_from_path("style.css");
+      
+      
+      Glib::RefPtr<Gtk::StyleContext> styleContext = Gtk::StyleContext::create();
+      
+      //get default screen
+      Glib::RefPtr<Gdk::Screen> screen = Gdk::Screen::get_default();
+      
+      //add provider for screen in all application
+      styleContext->add_provider_for_screen(screen,cssProvider,GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 	
       app->run(*appWindow);
 

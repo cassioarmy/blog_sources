@@ -2,7 +2,7 @@ GtkLabel{
    color:#660000
 }
 
-.listitem:selected,.listitem:actived {
+.listitem:selected {
     background-color: #3333CC;
 }
 
